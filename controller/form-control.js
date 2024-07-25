@@ -80,7 +80,7 @@ exports.getForm = expressAsyncHandler(async (req, res) => {
         },
         {
             $match: {
-                'formDetails.name': { $regex: searchVal }
+                'formDetails.name': { $regex: searchVal === "NotTesting" ? "" : searchVal, $options: 'i' }
             }
         },
 
