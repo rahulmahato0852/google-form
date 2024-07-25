@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const path = require('path')
 const cookieParser = require('cookie-parser')
 require('dotenv').config({ path: "" })
 
@@ -13,6 +14,7 @@ app.use(cors({
 }))
 
 app.use(express.static('uploads'))
+app.use(express.static(path.join(__dirname, "dist", "client/browser")));
 app.use(cookieParser())
 
 
@@ -33,7 +35,8 @@ app.use((err, req, res, next) => {
 
 
 app.use("*", (req, res) => {
-    res.status(404).json({ message: "Resource not found" })
+    res.sendFile(path.join(__dirname, "dist", "client/browser/index.html"));
+    // res.status(404).json({ message: "Resource not found" })
 })
 
 
