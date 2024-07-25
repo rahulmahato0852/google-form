@@ -40,6 +40,6 @@ app.use("*", (req, res) => {
 mongoose.connect(process.env.MONGO_URL)
 mongoose.connection.once("open", () => {
     console.log("Mongoose connected");
-    app.listen(3000, console.log("SERVER RUNNING"))
+    app.listen(process.env.PORT, console.log("SERVER RUNNING"))
 })
 
