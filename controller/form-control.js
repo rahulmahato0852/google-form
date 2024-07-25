@@ -74,6 +74,11 @@ exports.getForm = expressAsyncHandler(async (req, res) => {
         },
         {
             $unwind: "$formDetails"
+        },
+        {
+            $sort: {
+                createdAt: 1
+            }
         }
     ])
     res.status(200).json({ message: "Form Fetch Success", result })
