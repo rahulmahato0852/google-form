@@ -9,7 +9,8 @@ const app = express()
 
 app.use(express.json())
 app.use(cors({
-    origin: "https://google-form-xayl.onrender.com",
+    origin: "http://localhost:4200",
+    // origin: "https://google-form-xayl.onrender.com/",
     credentials: true
 }))
 
