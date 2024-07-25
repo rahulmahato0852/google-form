@@ -47,6 +47,9 @@ exports.addForm = expressAsyncHandler(async (req, res) => {
 
 exports.getForm = expressAsyncHandler(async (req, res) => {
 
+    const { searchVal } = req.params
+    console.log(searchVal);
+
     const result = await Questions.aggregate([
         {
             $group: {
@@ -75,6 +78,12 @@ exports.getForm = expressAsyncHandler(async (req, res) => {
         {
             $unwind: "$formDetails"
         },
+        {
+            $match: {
+                'formDetails.name': { $regex: searchVal }
+            }
+        },
+
         {
             $sort: {
                 createdAt: 1

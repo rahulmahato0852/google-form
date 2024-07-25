@@ -6,7 +6,7 @@ const x = Router()
 x
     .post("/add-form", addForm)
     .get("/fetch-responses/:id", getResponses)
-    .get("/get-allForms", getForm)
+    .get("/get-allForms/:searchVal", getForm)
     .get("/get-form-details/:id", getFormDetails)
     .put("/update-form", updateForm)
 
