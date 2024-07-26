@@ -5,7 +5,7 @@ const x = Router()
 
 x
     .post("/add-form", addForm)
-    .delete("/delete-form", deleteForm)
+    .delete("/delete-form/:id", deleteForm)
     .get("/fetch-responses/:id", getResponses)
     .get("/get-allForms/:searchVal", getForm)
     .get("/get-form-details/:id", getFormDetails)
