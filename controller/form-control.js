@@ -94,6 +94,20 @@ exports.getForm = expressAsyncHandler(async (req, res) => {
 })
 
 
+exports.deleteForm = expressAsyncHandler(async (req, res) => {
+    const { id } = req.params
+    const x = ValidationNew(res, [
+        { keyname: "id", value: id, validations: [{ except: false, key: "isEmpty" }] }
+    ])
+
+    if (x) {
+        return;
+    }
+
+    await Forms.findByIdAndDelete(id)
+    res.status(200).json({ message: "Form Drop Success" })
+})
+
 
 
 exports.getFormDetails = expressAsyncHandler(async (req, res) => {
