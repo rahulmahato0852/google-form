@@ -9,11 +9,11 @@ exports.userProtected = expressAsyncHandler(async (req, res, next) => {
         return res.status(401).json({ message: "No Cookie found" })
     }
 
-    jwt.verify(googleFormToken, process.env.JWT_KEY, (err, data) => {
+    jwt.verify(googleFormToken, "secret@123", (err, data) => {
         if (err) {
             return res.status(401).json({ message: "Session expired" })
         }
         req.body.userId = data.userId
-        next()
+        next();
     })
 })

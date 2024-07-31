@@ -31,7 +31,7 @@ app.use("/api/auth", require('./routes/auth.routes'))
 
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message || "SERVER ERROR" })
-    next()
+    next();
 })
 
 
