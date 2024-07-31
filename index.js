@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
 const cookieParser = require('cookie-parser')
+const { userProtected } = require('./middleware/userProtected')
 require('dotenv').config({ path: "" })
 
 const app = express()
@@ -23,7 +24,8 @@ app.use(cookieParser())
 
 
 app.use("/api/form", require('./routes/forms.routes'))
-app.use("/api/user", require('./routes/user.routes'))
+app.use("/api/user", userProtected(), require('./routes/user.routes'))
+app.use("/api/auth", require('./routes/auth.routes'))
 
 
 

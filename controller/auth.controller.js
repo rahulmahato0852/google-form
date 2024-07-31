@@ -1,5 +1,8 @@
 const asyncHandler = require('express-async-handler');
 const { ValidationNew } = require('../utils/validation');
+const jwt = require('jsonwebtoken')
+
+const User = require('../models/User');
 
 
 exports.adminLogin = asyncHandler(async (req, res) => {
@@ -14,8 +17,17 @@ exports.adminLogin = asyncHandler(async (req, res) => {
         return;
     }
 
+    const result = await User.findOne({ email })
 
+    if (result) {
+        return res.status(400).json({ message: "User Not Found" })
+    }
 
+    if (result.password !== password) {
+        return res.status(400).json({ message: "Wrong Password" })
+    }
 
-
+    const token = jwt.sign({ userId: result._id }, process.env.PORT, { expiresIn: "5hr" })
+    res.cookie("googleFormToken", token)
+    res.status(200).json({ message: "Welcome Back" + ' ' + result.name, result })
 })
