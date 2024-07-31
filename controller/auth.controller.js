@@ -22,6 +22,9 @@ exports.adminLogin = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Wrong Password" })
     }
     const token = jwt.sign({ userId: result._id }, "secret@123", { expiresIn: "15hr" })
-    res.cookie("googleFormToken", token, { httpOnly: false })
+    res.cookie("googleFormToken", token, {
+        sameSite: 'None',
+        secure: true,
+    })
     res.status(200).json({ message: "Welcome Back" + ' ' + result.name, result })
 })
