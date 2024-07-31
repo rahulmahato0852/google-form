@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 exports.userProtected = expressAsyncHandler(async (req, res, next) => {
 
     const { googleFormToken } = req.cookies
-    console.log("called");
+    console.log("called", googleFormToken, "coooooooooooooooo", req.cookies);
     if (!googleFormToken) {
         return res.status(401).json({ message: "No Cookie found" })
     }
