@@ -23,8 +23,8 @@ app.use(cookieParser())
 
 
 
-app.use("/api/form", require('./routes/forms.routes'))
-app.use("/api/user", userProtected(), require('./routes/user.routes'))
+app.use("/api/form", userProtected, require('./routes/forms.routes'))
+app.use("/api/user", userProtected, require('./routes/user.routes'))
 app.use("/api/auth", require('./routes/auth.routes'))
 
 
