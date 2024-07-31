@@ -7,10 +7,10 @@ const x = Router()
 x
     .post("/add-form", userProtected, addForm)
     .delete("/delete-form/:id", userProtected, deleteForm)
-    .get("/fetch-responses/:id", getResponses)
+    .get("/fetch-responses/:id", userProtected, getResponses)
     .get("/get-allForms/:searchVal", userProtected, getForm)
-    .get("/get-form-details/:id", userProtected, getFormDetails)
-    .put("/update-form", updateForm)
+    .get("/get-form-details/:id", getFormDetails)
+    .put("/update-form", userProtected, updateForm)
 
 
 
