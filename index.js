@@ -4,6 +4,7 @@ const cors = require('cors')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const { userProtected } = require('./middleware/userProtected')
+const { verifyToken } = require('./controller/auth.controller')
 require('dotenv').config({ path: "" })
 
 const app = express()
@@ -21,7 +22,14 @@ app.use(express.static(path.join(__dirname, "dist", "client/browser")));
 app.use(cookieParser())
 
 
-
+app.post('/api/verifyToken', async (req, res) => {
+    try {
+        const payload = await verifyToken(req.body.token);
+        res.json(payload);
+    } catch (error) {
+        res.status(400).send('Invalid token');
+    }
+});
 
 
 app.use("/api/form", require('./routes/forms.routes'))

@@ -260,7 +260,8 @@ exports.getResponses = expressAsyncHandler(async (req, res) => {
             $project: {
                 "answers.formId": 0
             }
-        }
+        },
     ])
+    console.log('ccccccccccccccccccccccc');
     res.status(200).json({ message: "Form Responses fetch success", result: respon })
 })

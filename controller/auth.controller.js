@@ -5,6 +5,33 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User');
 
 
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client('487481786057-8fm17ohhro27tmdmg91easmugj9l0i1l.apps.googleusercontent.com');
+
+exports.verifyToken = async function verifyToken(token) {
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: '487481786057-8fm17ohhro27tmdmg91easmugj9l0i1l.apps.googleusercontent.com',
+        });
+        const payload = ticket.getPayload();
+        return payload;
+    } catch (error) {
+        console.error('Error verifying token:', error);
+        throw error;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 exports.adminLogin = asyncHandler(async (req, res) => {
     const { email, password } = req.body
     const x = ValidationNew(res, [
@@ -23,8 +50,9 @@ exports.adminLogin = asyncHandler(async (req, res) => {
     }
     const token = jwt.sign({ userId: result._id }, "secret@123", { expiresIn: "15hr" })
     res.cookie("googleFormToken", token, {
-        sameSite: 'None',
-        secure: true,
+        // sameSite: 'lax',
+        secure: false,
+        httpOnly: false
     })
     res.status(200).json({ message: "Welcome Back" + ' ' + result.name, result })
 })

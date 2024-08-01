@@ -9,8 +9,8 @@ exports.addFormResponse = expressAsyncHandler(async (req, res) => {
     const { id: formId } = req.params
     const data = req.body
 
-    const alreduReponsed = await Responses.findOne({ email: data.email, formId })
-    if (alreduReponsed) {
+    const alreadyReponsed = await Responses.findOne({ email: data.email, formId })
+    if (alreadyReponsed) {
         return res.status(200).json({ message: "You are alredy responeded" })
     }
 
