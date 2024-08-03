@@ -9,8 +9,8 @@ exports.addFormResponse = expressAsyncHandler(async (req, res) => {
     const { id: formId } = req.params
     const data = req.body
 
-    const alreadyReponsed = await Responses.findOne({ email: data.email, formId })
-    if (alreadyReponsed) {
+    const alreduReponsed = await Responses.findOne({ email: data.email, formId })
+    if (alreduReponsed) {
         return res.status(200).json({ message: "You are alredy responeded" })
     }
 
@@ -200,5 +200,20 @@ exports.getFormResponse = expressAsyncHandler(async (req, res) => {
     ])
     console.log(respon);
     res.status(200).json({ message: "Response Fetch Success", result: respon[0] })
+
+})
+
+
+
+
+exports.checkIsAlreadyRespond = expressAsyncHandler(async (req, res) => {
+
+    const data = req.query
+    console.log(data);
+    const alreduReponsed = await Responses.findOne({ email: data.email, formId: data.formId })
+    if (!alreduReponsed) {
+        return res.status(400).json({ message: "User does not response form " })
+    }
+    res.status(200).json({ message: "you are alredy respond this form" })
 
 })
